@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Content = () => {
   const [data, setData] = useState([]);
+  const [iframeUrl,setIframeUrl]=useState('')
 
   useEffect(() => {
     axios({
@@ -18,12 +19,24 @@ const Content = () => {
   }, []);
 
   return (
+  <div>
+     {iframeUrl && 
+     <div className="iframeDiv">
+      
+      <iframe style={{width:'800px',height:'500px'}}
+      src={iframeUrl}/>
+      
+    </div>}
     <div className="content-container">
+    
+      
       {data.map((item) => (
         <div
           key={item.thumbnail}
           className="video-div"
-          onClick={() => window.open(item.matchviewUrl)}
+          // onClick={() => window.open(item.matchviewUrl)}
+          onClick={()=>{setIframeUrl(item.matchviewUrl)
+            window.scrollTo(250, 110)}}
         >
           <div>
             <h4>{item.title}</h4>
@@ -33,6 +46,7 @@ const Content = () => {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 };
